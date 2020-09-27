@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/only77nt/avito-task/adapter"
+	service2 "github.com/only77nt/avito-task/service"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
@@ -20,12 +21,14 @@ func main() {
 
 	store := adapter.NewGormStore(db)
 
-	service := NewService(store)
+	service := service2.NewService(store)
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/{url}", service.GetShortUrl).Methods("GET")
-	r.HandleFunc("/", service.RedirectByUrl).Methods("POST")
+	r.HandleFunc("/short-url", service.GetShortUrl)
+	r.HandleFunc("/redirect", service.RedirectByUrl)
+
+	fmt.Println("Start listening in http://localhost:8000")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

@@ -1,0 +1,10 @@
+version: "2"
+services:
+  app:
+    image: golang:1.6.1-alpine
+    volumes:
+      - .:/go/src/Avito-task
+    working_dir: /go/src/Avito-task
+    environment:
+      - GOPATH=/go/src/Avito-task
+    command: go run main.go
