@@ -12,7 +12,8 @@ import (
 )
 
 func main() {
-	dsn := "root:QWEasd777+@tcp(127.0.0.1:3306)/links?charset=utf8mb4&parseTime=True&loc=Local"
+	//dsn := "root:QWEasd777+@tcp(127.0.0.1:3306)/links?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:root@tcp(172.18.0.2:3306)/links?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
@@ -28,7 +29,7 @@ func main() {
 	r.HandleFunc("/short-url", service.GetShortUrl)
 	r.HandleFunc("/redirect", service.RedirectByUrl)
 
-	fmt.Println("Start listening in http://localhost:8000")
+	fmt.Println("Start listening in http://localhost:9000")
 
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":9000", r))
 }
